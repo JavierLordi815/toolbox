@@ -1,4 +1,4 @@
-function vbbLabelerWithOccFlag_4View( objTypes, vidNm, annNm )
+function hFig = vbbLabeler2( objTypes, occTypes, vidNm, annNm )
 % Video bound box (vbb) Labeler.
 %
 % Used to annotated a video (seq file) with (tracked) bounding boxes. An
@@ -26,13 +26,12 @@ function vbbLabelerWithOccFlag_4View( objTypes, vidNm, annNm )
 % Please email us if you find bugs, or have suggestions or questions!
 % Licensed under the Simplified BSD License [see bsd.txt]
 
-% defaults
-objTypes = {'person', 'cyclist', 'people', 'person?'};
-occTypes = {'No-occ', 'Partial-occ', 'Heavy-occ'};
+if(nargin<1 || isempty(objTypes)), objTypes={'person', 'cyclist', 'people', 'person?'}; end
+if(nargin<2 || isempty(occTypes)), occTypes={'No-occ', 'Partial-occ', 'Heavy-occ'}; end
+if(nargin<3 || isempty(vidNm)), vidNm={'', ''}; end
+if(nargin<4 || isempty(annNm)), annNm=''; end
 
-% if(nargin<1 || isempty(objTypes)), objTypes={'object'}; end
-if(nargin<2 || isempty(vidNm)), vidNm=''; end
-if(nargin<3 || isempty(annNm)), annNm=''; end
+warning('off','MATLAB:interp1:UsePCHIP');
 
 % settable constants
 maxSkip   = 250;  % max value for skip
@@ -63,7 +62,13 @@ drawnow;
 
 % optionally load default data
 if(~isempty(vidNm)), filesApi.openVid(vidNm); end
-if(~isempty(annNm)), filesApi.openAnn(annNm); end
+if(~isempty(annNm)), 
+    try
+        filesApi.openAnn(annNm); 
+    catch
+        filesApi.newAnn();
+    end
+end
       
   function makeLayout()
     % properties for gui objects
@@ -807,19 +812,24 @@ if(~isempty(annNm)), filesApi.openAnn(annNm); end
     
     function openVid( f )
       if( nargin>0 )
-        [d,f]=fileparts(f); if(isempty(d)), d='.'; end;
-        d=[d '/']; f=[f '.seq'];
+        [d,f1]=fileparts(f{1}); 
+        if(isempty(d)), d='.'; end;        d=[d '/']; 
+        fVid1=[d f1 '.seq'];
+        [d,f2]=fileparts(f{2}); 
+        if(isempty(d)), d='.'; end;        d=[d '/']; 
+        fVid2=[d f2 '.seq'];
+        
+        if( any( [ f1==0 f2==0 ] ) ), return; end;
       else
         d = '.';
         [f,d]=uigetfile('*.seq','Select visible video',[d '/*.seq']);
-        fVid1=[d f];
-
+        if( f==0 ), return; end;
+        fVid1=[d f];       
+        
         [f,d]=uigetfile('*.seq','Select lwir video',[d '/*.seq']);
         fVid2=[d f];                               
-        
-      end
-      
-      if( f==0 ), return; end;       
+        if( f==0 ), return; end;        
+      end            
      
       try
         s=0; sr1=seqIo(fVid1,'r',maxCache); s=1;
