@@ -9,10 +9,10 @@ This is an extended version of Piotr's Computer Vision Matlab Toolbox to deal wi
 If you use our extended toolbox or dataset in your research, please consider citing:
 
 	@inproceedings{hwang2015multispectral,
-		Author = {Soonmin Hwang and Jaesik Park and Namil Kim and Yukyung Choi and In So Kweon},
-		Title = {Multispectral Pedestrian Detection: Benchmark Dataset and Baselines},
-		Booktitle = {Proceedings of IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-		Year = {2015}
+			Author = {Soonmin Hwang and Jaesik Park and Namil Kim and Yukyung Choi and In So Kweon},
+			Title = {Multispectral Pedestrian Detection: Benchmark Dataset and Baselines},
+			Booktitle = {Proceedings of IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+			Year = {2015}
 }
 
 
