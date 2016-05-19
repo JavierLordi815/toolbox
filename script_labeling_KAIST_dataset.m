@@ -3,9 +3,11 @@ function script_labeling_KAIST_dataset( bSelectRoot )
 % KAIST Multi-spectral Recognition Dataset
 %                                Yukyung Choi et al. 2016.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Tested on R2014b, R2015b
-%   (Not working on R2014a due to the difference of input parameters 
-%       in pngreadc.mexw64)
+%
+% When the 'pngreadc.mexw64' makes a problem,
+%   do followings:
+%       >> clear mex; d = fileparts(which(mfilename));
+%       >> delete( fullfile(d, videos, private, *png*) );
 %
 % - {rootPath} for KAIST dataset
 %   - Set01 (AM05)
