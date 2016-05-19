@@ -3,6 +3,10 @@ function script_labeling_KAIST_dataset( bSelectRoot )
 % KAIST Multi-spectral Recognition Dataset
 %                                Yukyung Choi et al. 2016.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tested on R2014b, R2015b
+%   (Not working on R2014a due to the difference of input parameters 
+%       in pngreadc.mexw64)
+%
 % - {rootPath} for KAIST dataset
 %   - Set01 (AM05)
 %       - V01 (North)

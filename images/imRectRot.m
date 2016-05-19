@@ -122,7 +122,7 @@ api = struct('getPos',@getPos, 'setPos',@setPos, 'uistack',@uistack1, ...
     for i=1:4+cross, hBnds(i)=line(linePrp{:},'Visible',vis); end
     
     % create transparent patch to capture clicks in object interior
-    hPatch=patch('FaceColor','none','EdgeColor','none');
+    hPatch=patch('FaceColor','w','EdgeColor','none', 'FaceAlpha', 0.1);
     
     % create objects for ellipse display/interface
     if( ellipse )
