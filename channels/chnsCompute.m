@@ -1,4 +1,4 @@
-function chns = chnsCompute( I, varargin )
+function chns = chnsCompute( Img, varargin )
 % Compute channel features at a single scale given an input image.
 %
 % Compute the channel features as described in:
@@ -59,7 +59,7 @@ function chns = chnsCompute( I, varargin )
 %  chns = chnsCompute( I, pChns )
 %
 % INPUTS
-%  I           - [hxwx3] input image (uint8 or single/double in [0,1])
+%  Img         - [hxwx3] input image (uint8 or single/double in [0,1])
 %  pChns       - parameters (struct or name/value pairs)
 %   .shrink       - [4] integer downsampling amount for channels
 %   .pColor       - parameters for color space:
@@ -118,7 +118,7 @@ function chns = chnsCompute( I, varargin )
 
 % get default parameters pChns
 if(nargin==2), pChns=varargin{1}; else pChns=[]; end
-if( ~isfield(pChns,'complete') || pChns.complete~=1 || isempty(I) )
+if( ~isfield(pChns,'complete') || pChns.complete~=1 || isempty(Img) )
   p=struct('enabled',{},'name',{},'hFunc',{},'pFunc',{},'padWith',{});
   pChns = getPrmDflt(varargin,{'shrink',4,'pColor',{},'pGradMag',{},...
     'pGradHist',{},'pCustom',p,'complete',1},1);
@@ -140,9 +140,13 @@ info=struct('name',{},'pChn',{},'nChns',{},'padWith',{});
 chns=struct('pChns',pChns,'nTypes',0,'data',{{}},'info',info);
 
 % crop I so divisible by shrink and get target dimensions
-shrink=pChns.shrink; [h,w,~]=size(I); cr=mod([h w],shrink);
-if(any(cr)), h=h-cr(1); w=w-cr(2); I=I(1:h,1:w,:); end
+shrink=pChns.shrink; [h,w,~]=size(Img); cr=mod([h w],shrink);
+if(any(cr)), h=h-cr(1); w=w-cr(2); Img=Img(1:h,1:w,:); end
 h=h/shrink; w=w/shrink;
+
+% To handle 4-channel images (KAIST-MultispectralDB)
+if size(Img,3) == 4, T = Img(:,:,4); I = Img(:,:,1:3);    
+else I = Img; end
 
 % compute color channels
 p=pChns.pColor; nm='color channels';
@@ -170,7 +174,7 @@ end
 % compute custom channels
 p=pChns.pCustom;
 for i=find( [p.enabled] )
-  C=feval(p(i).hFunc,I,p(i).pFunc{:});
+  C=feval(p(i).hFunc,Img,p(i).pFunc{:});
   chns=addChn(chns,C,p(i).name,p(i),p(i).padWith,h,w);
 end
 
