@@ -29,7 +29,7 @@ addpath( genpath( d ) );
 
 
 if nargin < 3, return; end
-if ~exist( pth, 'dir' ), pth = '../data-KAIST/videos'; end
+if ~exist( pth, 'dir' ), pth = '../data-kaist/videos'; end
 
 name = sprintf( '%s/Set%02d/V%03d/', pth, setNum, vidNum );
 
