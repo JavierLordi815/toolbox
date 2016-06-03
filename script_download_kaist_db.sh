@@ -10,16 +10,11 @@
 if [ $# -eq 2 ]
 then
 
-	set=$1
-	vid=$2
-	
-	dstPath="videos/Set0${set}/V00${vid}" 
-
-	echo ${dstPath}
-
+	target="videos/Set0$1/V00$2" 
+	dstPath="../data-kaist/${target}"
 	mkdir -p ${dstPath}
 
-	srcPath="http://multispectral.kaist.ac.kr/KAIST-IJRR-DB/${dstPath}"
+	srcPath="http://multispectral.kaist.ac.kr/KAIST-IJRR-DB/${target}"
 	wget -P ${dstPath} "${srcPath}/RGB.seq"
 	wget -P ${dstPath} "${srcPath}/T8.seq"
 else
