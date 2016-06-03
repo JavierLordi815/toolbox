@@ -1,4 +1,4 @@
-function hFig = vbbLabeler2( objTypes, occTypes, vidNm, annNm )
+function hFig = vbbLabeler2( objTypes, occTypes, vidNm )
 % Video bound box (vbb) Labeler.
 %
 % Used to annotated a video (seq file) with (tracked) bounding boxes. An
@@ -29,7 +29,6 @@ function hFig = vbbLabeler2( objTypes, occTypes, vidNm, annNm )
 if(nargin<1 || isempty(objTypes)), objTypes={'person', 'cyclist', 'people', 'person?'}; end
 if(nargin<2 || isempty(occTypes)), occTypes={'No-occ', 'Partial-occ', 'Heavy-occ'}; end
 if(nargin<3 || isempty(vidNm)), vidNm={'', ''}; end
-if(nargin<4 || isempty(annNm)), annNm=''; end
 
 warning('off','MATLAB:interp1:UsePCHIP');
 
@@ -38,8 +37,8 @@ maxSkip   = 250;  % max value for skip
 nStep     = 16;   % number of objects to display in lower panel
 repLen    = 1;    % number of seconds to replay on left replay
 maxCache  = 500;  % max cache length (set as high as memory allows)
-fps       = 150;  % initial fps for playback (if 0 uses actual fps)
-skip0     = 20;   % initial skip (zoom)
+fps       = 20;  % initial fps for playback (if 0 uses actual fps)
+skip0     = 5;   % initial skip (zoom)
 seqPad    = 4;    % amount of padding around object in seq view
 siz0      = 20;   % minimum rect width/height
 sizLk     = 0;    % if true rects cannot be resized
@@ -62,13 +61,6 @@ drawnow;
 
 % optionally load default data
 if(~isempty(vidNm)), filesApi.openVid(vidNm); end
-if(~isempty(annNm)), 
-    try
-        filesApi.openAnn(annNm); 
-    catch
-        filesApi.newAnn();
-    end
-end
       
   function makeLayout()
     % properties for gui objects
@@ -880,7 +872,8 @@ end
     
     function saveAnn()
       A1=objApi.annForSave(); if(isempty(A1)), return; end
-      [f,d]=uiputfile('*.vbb;*.txt','Select Annotation',fAnn);
+%       f=fileparts( fAnn );
+      [f,d]=uiputfile('*.vbb;*.txt','Select Annotation', fileparts(fAnn) );
       if( f==0 ), return; end; fAnn=[d f]; tSave=clock; tSave1=tSave;
       if(exist(fAnn,'file')), copyfile(fAnn,vbb('vbbName',fAnn,1)); end
       vbb('vbbSave',A1,fAnn); objApi.annSaved();

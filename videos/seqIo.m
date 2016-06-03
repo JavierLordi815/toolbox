@@ -328,10 +328,12 @@ if(~isempty(aviName))
 elseif( isempty(Is) )
   assert(exist(sDir,'dir')==7); sw=writer(fName,info); info=sw.getinfo();
   frmStr=sprintf('%s/%s%%0%ii.%s',sDir,name,nDigits,info.ext);
+  tid=ticStatus('creating seq from images');  
   for frame = f0:skip:f1
     f=sprintf(frmStr,frame); if(~exist(f,'file')), break; end
     f=fopen(f,'r');  if(f<=0), sw.close(); assert(false); end
     I=fread(f); fclose(f); sw.addframeb(I);
+    tocStatus(tid,frame/f1);
   end; sw.close();
   if(frame==f0), warning('No images found.'); end %#ok<WNTAG>
 else
