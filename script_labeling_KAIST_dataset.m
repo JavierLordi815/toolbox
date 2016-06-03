@@ -5,26 +5,31 @@ function script_labeling_KAIST_dataset( pth, setNum, vidNum )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % When the 'pngreadc.mexw64' makes a problem,
-%   please do followings:
+%   do followings:
 %       >> clear mex; d = fileparts(which(mfilename));
 %       >> delete( fullfile(d, videos, private, *png*) );
 %
 % - {rootPath} for KAIST dataset
-%   - Set01 (AM05)
-%       - V01 (North)
-%           - T8 (Splitter)
+%   - Set00 (AM05)
+%       - V000 (North)
+%           - T8  (Splitter)
 %           - RGB (Splitter)       
-%       - V02 (West)
-%       - V03 (East)
+%       - V001 (West)
+%       - V002 (East)
+%   - Set01
 %   - Set02
 %   - Set03
 %   - Set04
 %   - Set05
 %   - Set06
+%   - Set07
+
+d = fileparts(which(mfilename));
+addpath( genpath( d ) );
+
 
 if nargin < 3, return; end
-if ~exist( pth, 'dir' ), pth = uigetdir; end
-if pth == 0, return; end
+if ~exist( pth, 'dir' ), pth = '../data-KAIST/videos'; end
 
 name = sprintf( '%s/Set%02d/V%03d/', pth, setNum, vidNum );
 
@@ -37,4 +42,3 @@ uiwait( hFig );
 
 tmpFiles = dir( 'tmp*' );
 arrayfun( @(x) delete( x.name ), tmpFiles, 'uniformoutput', false );
-
