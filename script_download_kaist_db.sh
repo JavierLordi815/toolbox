@@ -13,7 +13,7 @@ then
 	set=$1
 	vid=$2
 	
-	dstPath="Set0${set}/V00${vid}" 
+	dstPath="videos/Set0${set}/V00${vid}" 
 
 	echo ${dstPath}
 
