@@ -35,7 +35,7 @@ name = sprintf( '%s/Set%02d/V%03d/', pth, setNum, vidNum );
 
 targetObjs = { 'person', 'car', 'people', 'ignore' };
 occTypes = {'No-occ', 'Partial-occ', 'Heavy-occ'};
-seqNames = { [ name 'RGB.seq' ], [ name 'T8.seq' ] };
+seqNames = { [ name 'RGB' ], [ name 'T8' ] };
 
 hFig = vbbLabeler2( targetObjs, occTypes, seqNames );
 uiwait( hFig );
