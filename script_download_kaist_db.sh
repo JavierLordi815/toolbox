@@ -19,7 +19,7 @@ then
 
 	mkdir -p ${dstPath}
 
-	srcPath="http://multispectral.kaist.ac.kr/KAIST-IJRR-DB/videos/${dstPath}"
+	srcPath="http://multispectral.kaist.ac.kr/KAIST-IJRR-DB/${dstPath}"
 	wget -P ${dstPath} "${srcPath}/RGB.seq"
 	wget -P ${dstPath} "${srcPath}/T8.seq"
 else
