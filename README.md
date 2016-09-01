@@ -1,11 +1,13 @@
-
+---
 # KAIST Multispectral Pedestrian Detection Benchmark
 By Soonmin Hwang, Jaesik Park, Namil Kim, Yukyung Choi, In So Kweon at RCV Lab. (KAIST)
-![teaserImage](https://sites.google.com/site/pedestrianbenchmark/home/main_img.png?attredirects=0)
- 
+[Website](http://multispectral.kasit.ac.kr)
+![teaserImage](https://sites.google.com/site/pedestrianbenchmark/home/main_img.png)
+---
+
 &nbsp;
 ---
-### Download links for requested dataset
+### Dataset Download
 
 > [[Readme]](http://multispectral.kaist.ac.kr/pedestrian/Readme.txt) 
 >
@@ -58,11 +60,12 @@ Or you can download extracted png files. (consisting of a few thousands png imag
 &nbsp;
 ---
 ### Toolbox
-This is an extended version of Piotr's Computer Vision Matlab Toolbox to deal with multispectral images. Original toolbox is [here](https://github.com/pdollar/toolbox)
+This is an extended version of Piotr's Computer Vision Matlab Toolbox to deal with multispectral images.   
+Original toolbox is [here](https://github.com/pdollar/toolbox)
 
-> [Modified toolbox - compatible with 4ch inputs](http://multispectral.kaist.ac.kr/piotr-toolbox-3.40.tar)
 
-
+&nbsp;
+---
 ### Citation
 If you use our extended toolbox or dataset in your research, please consider citing:
 
@@ -73,6 +76,6 @@ If you use our extended toolbox or dataset in your research, please consider cit
 		Year = {2015}
 	}
 
-
-* To reproduce the results in CVPR '15 paper, run 'detector/acfDemoKAIST.m'.
+&nbsp;
+To reproduce the results in CVPR '15 paper, run 'detector/acfDemoKAIST.m'.
 
